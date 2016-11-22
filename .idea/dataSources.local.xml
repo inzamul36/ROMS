@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Sqlite (Xerial) - development.sqlite3" uuid="de2588f2-a106-4108-9b4a-113408dc57f7">
+      <database-info product="SQLite" version="3.8.11" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native" />
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <secret-storage>master_key</secret-storage>
+      <auth-required>false</auth-required>
+    </data-source>
+  </component>
+</project>

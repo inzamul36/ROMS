@@ -1,0 +1,218 @@
+
+
+<% if user_signed_in? %>
+
+<!DOCTYPE html>
+  <html>
+
+    <head>
+
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <title><%= yield(:title) %> | RailsOMS</title>
+      <%= csrf_meta_tags %>
+
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+      <%= stylesheet_link_tag    'application', :media => "all" %>
+      <%= stylesheet_link_tag    'print', :media => "print" %>
+
+    </head>
+
+    <body class="fixed-nav fixed-nav-basic"> <!-- min sidemenu: mini-navbar-->
+    <div id="wrapper">
+      <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+          <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+              <div class="dropdown profile-element">
+                <span>
+                  <h2 style="font-size: 30px; margin-bottom: 20px; color: #f70b0b">INFORTECH <span style="color: #1ab394; font-weight: 900">Solutions</span></h2>
+                </span>
+                <!--<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                  <span class="clear">
+                      <span class="block m-t-xs">
+                          <strong class="font-bold">RailsOMS Application</strong> <b class="caret"></b>
+                      </span>
+                  </span>
+                </a>
+                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                  <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+                </ul>-->
+              </div>
+              <div class="logo-element">
+                <h2 style="font-size: 10px; margin-top: 0px; margin-bottom: 0px; color: #f70b0b">INFORTECH <span style="color: #1ab394; font-weight: 900">Solutions</span></h2>
+              </div>
+            </li>
+            <li class="landing_link">
+              <%= link_to orders_path do %>
+                <i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span> <span class="label label-warning pull-right">HOME</span></a>
+              <% end %>
+            </li>
+            <li class="active">
+              <a href="index.html"><i class="fa fa-shopping-bag"></i> <span class="nav-label">Order</span> <span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level">
+                <li><%= link_to "All Orders", orders_path %></li>
+                <li class=""><%= link_to "Add Order", new_order_path %></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#"><i class="fa fa-cog fa-spin"></i> <span class="nav-label">Profile</span><span class="fa arrow"></span></a>
+              <ul class="nav nav-second-level collapse">
+                <li><%= link_to "Change Password", edit_user_registration_path %></li>
+                <li><%= link_to "Logout", destroy_user_session_path, :method => :delete %></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div id="page-wrapper" class="gray-bg" style="min-height: 600px;">
+        <div class="row border-bottom">
+          <nav class="navbar navbar-fixed-top white-bg" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+              <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+              <li style="padding: 20px 10px">
+                <span class="m-r-sm text-muted"><strong>RailsOMS</strong> Application.</span>
+              </li>
+              <li class="pull-right">
+                <%= link_to destroy_user_session_path, :method => 'delete' do %>
+                    <i class="fa fa-sign-out"></i> Log out
+                <% end %>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="wrapper wrapper-content">
+
+          <% if notice %>
+              <div class="alert alert-info">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Notice!</strong> <%= notice %>
+              </div>
+          <% end %>
+
+          <% if alert %>
+              <div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Alert!</strong> <%= alert %>
+              </div>
+          <% end %>
+
+          <%= yield %>
+
+        </div>
+
+        <div class="footer">
+          <div class="pull-right">
+            BY <strong><span style="color: green">INZAMUL</span><span style="color:red"> HAQUE</span></strong>
+          </div>
+          <div>
+            <strong>Copyright</strong> INFORTECH Solutions &copy; <%= Time.now.year %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <%= javascript_include_tag 'application' %>
+
+    <!-- Custom and plugin javascript -->
+    <script type="text/javascript">
+      $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green'
+      });
+    </script>
+
+    <% if notice %>
+      <script>
+        $(document).ready(function() {
+          setTimeout(function() {
+            toastr.options = {
+              closeButton: true,
+              progressBar: true,
+              showMethod: 'slideDown',
+              timeOut: 4000
+            };
+            toastr.success('<%= notice %>', 'Notice');
+          }, 1300);
+        });
+      </script>
+    <% end %>
+
+    <script>
+      $(document).ready(function(){
+        $('.dataTables-example').DataTable({
+          dom: '<"html5buttons"B>lTfgitp',
+          buttons: [
+            { extend: 'copy'},
+            {extend: 'csv'},
+            {extend: 'excel', title: 'ExampleFile'},
+            {extend: 'pdf', title: 'ExampleFile'},
+
+            {extend: 'print',
+              customize: function (win){
+                $(win.document.body).addClass('white-bg');
+                $(win.document.body).css('font-size', '10px');
+
+                $(win.document.body).find('table')
+                    .addClass('compact')
+                    .css('font-size', 'inherit');
+              }
+            }
+          ]
+
+        });
+      });
+    </script>
+
+    </body>
+  </html>
+
+
+<% else %>
+
+<!DOCTYPE html>
+  <html>
+
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+      <title>Login | RailsOMS</title>
+      <%= csrf_meta_tags %>
+
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+      <%= stylesheet_link_tag    'application' %>
+    </head>
+
+    <body class="gray-bg">
+    <div class="middle-box text-center loginscreen animated fadeInDown">
+      <div>
+
+        <%= yield %>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="pull-right">
+        BY <strong><span style="color: green">INZAMUL</span><span style="color:red"> HAQUE</span></strong>
+      </div>
+      <div>
+        <strong>Copyright</strong> INFORTECH Solutions &copy; <%= Time.now.year %>
+      </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <%= javascript_include_tag 'application' %>
+
+    </body>
+
+  </html>
+
+<% end %>

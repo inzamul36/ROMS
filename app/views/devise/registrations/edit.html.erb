@@ -1,0 +1,60 @@
+<% content_for :title, "Edit User" %>
+
+<div class="ibox float-e-margins">
+  <div class="ibox-title">
+    <h5>Edit <small><%= resource_name.to_s.humanize %> </small></h5>
+    <div class="ibox-tools">
+      <a class="collapse-link">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+      <a class="close-link">
+        <i class="fa fa-times"></i>
+      </a>
+    </div>
+  </div>
+  <div class="ibox-content">
+    <div class="row">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= devise_error_messages! %>
+          <div class="col-sm-6 b-r">
+            <h3 class="m-t-none m-b">Change Password</h3>
+            <div class="form-group">
+              <label>Email</label>
+              <%= f.email_field :email, :class=>"form-control", autofocus: true %>
+            </div>
+
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+            <% end %>
+
+            <div class="form-group">
+              <label>Password <i>(leave blank if you don't want to change it)</i></label>
+              <%= f.password_field :password, :class=>"form-control", autocomplete: "off" %>
+              <% if @minimum_password_length %>
+                <br />
+                <em class="pull-right"><%= @minimum_password_length %> characters minimum</em>
+              <% end %>
+            </div>
+
+            <div class="form-group">
+              <label>Password confirmation</label>
+              <%= f.password_field :password_confirmation, :class=>"form-control", autocomplete: "off" %>
+            </div>
+
+            <div class="form-group">
+              <label>Current Password <i>(we need your current password to confirm your changes)</i></label>
+              <%= f.password_field :current_password, :class=>"form-control", autocomplete: "off" %>
+            </div>
+
+            <div class="col-sm-12">
+              <div class="hr-line-dashed"></div>
+              <%= f.submit "Update", :class=>"btn btn-sm btn-primary pull-right m-t-n-xs" %>
+            </div>
+          </div>
+          <div class="col-sm-6 b-r">
+            <%= image_tag 'lock.jpg', :width=>'100%', :height => '100%' %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,125 @@
+<% content_for :title, "Print Order" %>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-8">
+    <h2>Invoice</h2>
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to 'Home', orders_path%>
+      </li>
+      <li class="active">
+        <strong>Invoice</strong>
+      </li>
+    </ol>
+  </div>
+  <div class="col-lg-4">
+    <div class="title-action">
+      <button href="#" onclick="print_invoice()" class="btn btn-primary"><i class="fa fa-print"></i> Print Invoice </button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+
+    <div class="wrapper wrapper-content animated fadeInRight" id="print">
+      <div class="ibox-content p-xl">
+
+        <div class="invoice_head">
+          <div class="row">
+            <div class="col-xs-10">
+              <h2 style="font-size: 30px; margin-bottom: 20px; color: #f70b0b">INFORTECH <span style="color: #1ab394; font-weight: 900">Solutions</span></h2>
+              <p>
+                Company address, Road: xx<br>
+                Dhaka 12xx
+              </p>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <h4 class="text-center">INVOICE</h4>
+        <div class="row">
+          <div class="col-xs-6">
+            <h5>To:</h5>
+            <address>
+              <strong><%= @order.name %></strong><br>
+              <%= @order.address %><br>
+              <b>Phone :</b> <%= @order.phone %>
+            </address>
+          </div>
+
+          <div class="col-xs-6 text-right">
+            <h4>Invoice No.</h4>
+            <h4 class="text-navy">INV-000-<%= @order.id %></h4>
+            <p>
+              <span><strong>Invoice Date:</strong> Marh 18, 2014</span><br />
+              <span><strong>Due Date:</strong> <%= @order.delivery_date %></span>
+            </p>
+          </div>
+        </div>
+
+        <div class="table-responsive m-t">
+          <table class="table invoice-table">
+            <thead>
+            <tr>
+              <th>Item List</th>
+              <th>Price (Taka)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>
+                <div><%= @order.product_id %></div>
+              </td>
+              <td>Tk <%= @order.amount %></td>
+            </tr>
+            </tbody>
+          </table>
+        </div><!-- /table-responsive -->
+
+        <hr style="margin-top: 0px;">
+
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="well m-t">
+              <strong>Comments</strong>
+              It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <table class="table invoice-total">
+              <tbody>
+              <tr>
+                <td><strong>Sub Total :</strong></td>
+                <td>Tk <%= @order.amount %></td>
+              </tr>
+              <tr>
+                <td><strong>TAX :</strong></td>
+                <td>Tk 0</td>
+              </tr>
+              <tr>
+                <td><strong>TOTAL :</strong></td>
+                <td style="border: 1px solid #DDDDDD;">Tk <%= @order.amount %></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <p>
+              Recvied By : __________________
+            </p>
+          </div>
+          <div class="col-xs-6 text-right">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function print_invoice() {
+    window.print();
+  }
+</script>
