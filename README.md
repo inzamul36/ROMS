@@ -6,6 +6,9 @@ This application is created by MD INZAMUL HAQUE for INFORTECH Solutions. This is
 ##### Framework: Ruby on Rails 5.0
 ##### Language : Ruby 2.2.4
 
+## Demo
+https://www.youtube.com/watch?v=74vZmYu7dV0
+
 ## Install
 - Install all gems by typing this:
 ```
